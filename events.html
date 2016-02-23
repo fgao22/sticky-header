@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app='events'>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>Events list</title>
+		<link rel="stylesheet" type="text/css" href="events.css"/>
+		<script src="jquery-2.2.0.min.js"></script>
+		<script src="stickyHeaders.js"></script>
+		<script src="angular-1.3.11.js"></script>
+		<script src="angular-animate.min.js"></script>
+		<script src="events.js"></script>
+
+
+
+	</head>
+	<body ng-controller='eventsController'>
+		<nav id='navigationBar'>
+			<div id='filterBar'> 
+				<input type="search" placeholder='Filter events by description' spellcheck="false" ng-model="filterObject.description"/>
+			</div>
+			<div id='tableHeadersBar' style="">Description
+			<div style='float: right'>Showing {{filteredList.length}} of {{eventsList.length}}</div>
+			</div>
+			
+		</nav>
+		<article sticky-header id='eventsContainer'>
+			<ul>
+				<li ng-repeat='event in filteredList = (eventsList | filter: filterObject)'>
+					<div class='header' ng-if='event.firstInGroup'>Group #{{event.group}}</div>
+					<div ng-mouseenter='hoverIn()' ng-mouseleave="hoverOut()" ng-click="showDetails(event)" ng-style='eventColor' class='row'>{{event.description}}</div>
+					<div ng-show="event.showDetails" class='panel'>
+						<p>{{event.details}}</p>
+					</div>	
+				</li>
+			</ul>
+
+			</uib-accordion>
+		</article>
+	</body>
+</html>
